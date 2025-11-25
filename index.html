@@ -11,26 +11,62 @@
       max-width: 500px;
       margin: auto;
       text-align: center;
+      background: #f2f7ff;
+      color: #1a2b4c;
     }
+
     select, input {
       width: 90%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 15px;
       font-size: 16px;
+      background: #ffffff;
+      border: 2px solid #aac6ff;
+      border-radius: 8px;
+      color: #1a2b4c;
+      outline: none;
+      transition: all 0.3s ease;
     }
+
+    select:focus, input:focus {
+      border-color: #3f7bfc;
+      box-shadow: 0 0 5px rgba(63, 123, 252, 0.4);
+    }
+
     button {
       padding: 12px 20px;
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
+      background: #3f7bfc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      transition: 0.3s ease;
     }
+
+    button:hover {
+      background: #2f63d8;
+    }
+
     #call-section {
       margin-top: 25px;
       display: none;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #aac6ff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
+
     .error {
       color: red;
       margin-top: 10px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #1a2b4c;
     }
   </style>
 </head>
@@ -40,10 +76,12 @@
   <p>Select the car and verify the last 4 digits.</p>
 
   <select id="carSelect">
-    <!-- Cars will load here -->
+    <!-- Default placeholder -->
+    <option value="" disabled selected>Select your car</option>
   </select>
 
   <input id="digitInput" type="text" maxlength="4" placeholder="Enter last 4 digits">
+
   <button onclick="verifyDigits()">Verify</button>
 
   <div class="error" id="errorMsg"></div>
@@ -74,32 +112,30 @@
 
     const carSelect = document.getElementById("carSelect");
 
-    // Load cars into dropdown
+    // Add car list
     cars.forEach((car, index) => {
       const opt = document.createElement("option");
       opt.value = index;
-      opt.textContent = `${car.plate}`;
+      opt.textContent = car.plate;
       carSelect.appendChild(opt);
     });
 
     function verifyDigits() {
+      const errorMsg = document.getElementById("errorMsg");
+      const section = document.getElementById("call-section");
+
+      // Check if a car is selected
+      if (carSelect.value === "") {
+        errorMsg.innerText = "Please select a car first.";
+        section.style.display = "none";
+        return;
+      }
+
       const index = carSelect.value;
       const car = cars[index];
       const input = document.getElementById("digitInput").value.trim();
-      const errorMsg = document.getElementById("errorMsg");
 
+      // Check last 4 digits
       if (input === car.last4) {
         errorMsg.innerText = "";
-        document.getElementById("ownerName").innerText = car.ownerName;
-        document.getElementById("callBtn").innerHTML = `<button>Call ${car.ownerName}</button>`;
-        document.getElementById("callBtn").href = `tel:${car.phone}`;
-        document.getElementById("call-section").style.display = "block";
-      } else {
-        document.getElementById("call-section").style.display = "none";
-        errorMsg.innerText = "Incorrect digits. Try again.";
-      }
-    }
-  </script>
-
-</body>
-</html>
+        document.getElementById("ownerN
