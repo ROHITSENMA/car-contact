@@ -11,62 +11,26 @@
       max-width: 500px;
       margin: auto;
       text-align: center;
-      background: #f2f7ff;
-      color: #1a2b4c;
     }
-
     select, input {
       width: 90%;
-      padding: 12px;
+      padding: 10px;
       margin-top: 15px;
       font-size: 16px;
-      background: #ffffff;
-      border: 2px solid #aac6ff;
-      border-radius: 8px;
-      color: #1a2b4c;
-      outline: none;
-      transition: all 0.3s ease;
     }
-
-    select:focus, input:focus {
-      border-color: #3f7bfc;
-      box-shadow: 0 0 5px rgba(63, 123, 252, 0.4);
-    }
-
     button {
       padding: 12px 20px;
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
-      background: #3f7bfc;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      transition: 0.3s ease;
     }
-
-    button:hover {
-      background: #2f63d8;
-    }
-
     #call-section {
       margin-top: 25px;
       display: none;
-      background: #ffffff;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #aac6ff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
     .error {
       color: red;
       margin-top: 10px;
-      font-weight: bold;
-    }
-
-    h2 {
-      color: #1a2b4c;
     }
   </style>
 </head>
@@ -80,7 +44,6 @@
   </select>
 
   <input id="digitInput" type="text" maxlength="4" placeholder="Enter last 4 digits">
-  
   <button onclick="verifyDigits()">Verify</button>
 
   <div class="error" id="errorMsg"></div>
