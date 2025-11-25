@@ -56,10 +56,6 @@
     const last4Digits = "8321";     // <-- Change this to your last 4 digits
     const ownerName = "ROHIT SENMA!";   // <-- Your name
     const phoneNumber = "+918511758308"; // <-- Your phone number (full international format)
-    // Car-1
-    // const last4Digits = "3932";     // <-- Change this to your last 4 digits
-    // const ownerName = "ROHIT SENMA!";   // <-- Your name
-    // const phoneNumber = "+91 8511758308"; // <-- Your phone number (full international format)
     // ------------------------------------
 
     document.getElementById("ownerName").innerText = ownerName;
@@ -78,6 +74,31 @@
       }
     }
   </script>
+  
+  <script>
+    // ---- CUSTOMIZE YOUR DETAILS HERE ----
+    // Car-1
+    const last4Digits = "3932";     // <-- Change this to your last 4 digits
+    const ownerName = "ROHIT SENMA!";   // <-- Your name
+    const phoneNumber = "+918511758308"; // <-- Your phone number (full international format)
+    // ------------------------------------
+
+    document.getElementById("ownerName").innerText = ownerName;
+    document.getElementById("callBtn").innerHTML = `<button>Call ${ownerName}</button>`;
+    document.getElementById("callBtn").href = `tel:${phoneNumber}`;
+
+    function verifyDigits() {
+      const input = document.getElementById("digitInput").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (input === last4Digits) {
+        document.getElementById("call-section").style.display = "block";
+        errorMsg.innerText = "";
+      } else {
+        errorMsg.innerText = "Incorrect digits. Try again.";
+      }
+    }
+  </script> 
 
 </body>
 </html>
