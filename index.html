@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+
+    const last4Digits = "3932";     // <-- Change this to your last 4 digits
+    const ownerName = "ROHIT SENMA!";   // <-- Your name
+    const phoneNumber = "+918511758308"; // <-- Your phone number (full international format)
+
+
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,8 +19,8 @@
       margin: auto;
       text-align: center;
     }
-    input {
-      width: 80%;
+    select, input {
+      width: 90%;
       padding: 10px;
       margin-top: 15px;
       font-size: 16px;
@@ -36,8 +43,12 @@
 </head>
 <body>
 
-  <h2>Contact the Car Owner</h2>
-  <p>Please confirm you know the last 4 digits of the car number to contact the owner.</p>
+  <h2>Contact Car Owner</h2>
+  <p>Select the car and verify the last 4 digits.</p>
+
+  <select id="carSelect">
+    <!-- Cars will load here -->
+  </select>
 
   <input id="digitInput" type="text" maxlength="4" placeholder="Enter last 4 digits">
   <button onclick="verifyDigits()">Verify</button>
@@ -45,60 +56,57 @@
   <div class="error" id="errorMsg"></div>
 
   <div id="call-section">
-    <h3>Want to Owner?: <span id="ownerName"></span></h3>
+    <h3>Owner: <span id="ownerName"></span></h3>
     <p>Click below to call:</p>
     <a id="callBtn"></a>
   </div>
 
   <script>
-    // ---- CUSTOMIZE YOUR DETAILS HERE ----
-    // Car-1
-    const last4Digits = "8321";     // <-- Change this to your last 4 digits
-    const ownerName = "ROHIT SENMA!";   // <-- Your name
-    const phoneNumber = "+918511758308"; // <-- Your phone number (full international format)
-    // ------------------------------------
+    // ---------- ADD YOUR CARS HERE ----------
+    const cars = [
+      {
+        plate: "GJ02EK8321",
+        last4: "8321",
+        ownerName: "ROHIT SENMA!",
+        phone: "+918511758308"
+      },
+      {
+        plate: "GJ02DE3932",
+        last4: "9876",
+        ownerName: "John Doe",
+        phone: "+11234567890"
+      }
+    ];
+    // ----------------------------------------
 
-    document.getElementById("ownerName").innerText = ownerName;
-    document.getElementById("callBtn").innerHTML = `<button>Call ${ownerName}</button>`;
-    document.getElementById("callBtn").href = `tel:${phoneNumber}`;
+    const carSelect = document.getElementById("carSelect");
+
+    // Load cars into dropdown
+    cars.forEach((car, index) => {
+      const opt = document.createElement("option");
+      opt.value = index;
+      opt.textContent = `${car.plate}`;
+      carSelect.appendChild(opt);
+    });
 
     function verifyDigits() {
+      const index = carSelect.value;
+      const car = cars[index];
       const input = document.getElementById("digitInput").value.trim();
       const errorMsg = document.getElementById("errorMsg");
 
-      if (input === last4Digits) {
-        document.getElementById("call-section").style.display = "block";
+      if (input === car.last4) {
         errorMsg.innerText = "";
+        document.getElementById("ownerName").innerText = car.ownerName;
+        document.getElementById("callBtn").innerHTML = `<button>Call ${car.ownerName}</button>`;
+        document.getElementById("callBtn").href = `tel:${car.phone}`;
+        document.getElementById("call-section").style.display = "block";
       } else {
+        document.getElementById("call-section").style.display = "none";
         errorMsg.innerText = "Incorrect digits. Try again.";
       }
     }
   </script>
-  
-  <script>
-    // ---- CUSTOMIZE YOUR DETAILS HERE ----
-    // Car-1
-    const last4Digits = "3932";     // <-- Change this to your last 4 digits
-    const ownerName = "ROHIT SENMA!";   // <-- Your name
-    const phoneNumber = "+918511758308"; // <-- Your phone number (full international format)
-    // ------------------------------------
-
-    document.getElementById("ownerName").innerText = ownerName;
-    document.getElementById("callBtn").innerHTML = `<button>Call ${ownerName}</button>`;
-    document.getElementById("callBtn").href = `tel:${phoneNumber}`;
-
-    function verifyDigits() {
-      const input = document.getElementById("digitInput").value.trim();
-      const errorMsg = document.getElementById("errorMsg");
-
-      if (input === last4Digits) {
-        document.getElementById("call-section").style.display = "block";
-        errorMsg.innerText = "";
-      } else {
-        errorMsg.innerText = "Incorrect digits. Try again.";
-      }
-    }
-  </script> 
 
 </body>
 </html>
