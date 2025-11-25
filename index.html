@@ -25,7 +25,7 @@
       border-radius: 8px;
       color: #1a2b4c;
       outline: none;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
 
     select:focus, input:focus {
@@ -64,10 +64,6 @@
       margin-top: 10px;
       font-weight: bold;
     }
-
-    h2 {
-      color: #1a2b4c;
-    }
   </style>
 </head>
 <body>
@@ -76,7 +72,6 @@
   <p>Select the car and verify the last 4 digits.</p>
 
   <select id="carSelect">
-    <!-- Default placeholder -->
     <option value="" disabled selected>Select your car</option>
   </select>
 
@@ -93,7 +88,8 @@
   </div>
 
   <script>
-    // ---------- ADD YOUR CARS HERE ----------
+
+    // Your car list (clean version)
     const cars = [
       {
         plate: "GJ02EK8**1",
@@ -108,34 +104,43 @@
         phone: "+918511758308"
       }
     ];
-    // ----------------------------------------
 
     const carSelect = document.getElementById("carSelect");
 
-    // Add car list
-    cars.forEach((car, index) => {
-      const opt = document.createElement("option");
-      opt.value = index;
-      opt.textContent = car.plate;
-      carSelect.appendChild(opt);
-    });
+    // Load cars in dropdown (fixed)
+    for (let i = 0; i < cars.length; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = cars[i].plate;
+      carSelect.appendChild(option);
+    }
 
     function verifyDigits() {
       const errorMsg = document.getElementById("errorMsg");
       const section = document.getElementById("call-section");
 
-      // Check if a car is selected
       if (carSelect.value === "") {
         errorMsg.innerText = "Please select a car first.";
         section.style.display = "none";
         return;
       }
 
-      const index = carSelect.value;
-      const car = cars[index];
-      const input = document.getElementById("digitInput").value.trim();
+      const car = cars[carSelect.value];
+      const inputDigits = document.getElementById("digitInput").value.trim();
 
-      // Check last 4 digits
-      if (input === car.last4) {
+      if (inputDigits === car.last4) {
         errorMsg.innerText = "";
-        document.getElementById("ownerN
+        document.getElementById("ownerName").innerText = car.ownerName;
+        document.getElementById("callBtn").innerHTML = `<button>Call ${car.ownerName}</button>`;
+        document.getElementById("callBtn").href = `tel:${car.phone}`;
+        section.style.display = "block";
+      } else {
+        section.style.display = "none";
+        errorMsg.innerText = "Incorrect digits. Try again.";
+      }
+    }
+
+  </script>
+
+</body>
+</html>
