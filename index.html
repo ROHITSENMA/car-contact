@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Car Owner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #call-section {
+      margin-top: 25px;
+      display: none;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Contact the Car Owner</h2>
+  <p>Please confirm you know the last 4 digits of the car number to contact the owner.</p>
+
+  <input id="digitInput" type="text" maxlength="4" placeholder="Enter last 4 digits">
+  <button onclick="verifyDigits()">Verify</button>
+
+  <div class="error" id="errorMsg"></div>
+
+  <div id="call-section">
+    <h3>Owner: <span id="ownerName"></span></h3>
+    <p>Click below to call:</p>
+    <a id="callBtn"></a>
+  </div>
+
+  <script>
+    // ---- CUSTOMIZE YOUR DETAILS HERE ----
+    const last4Digits = "1234";     // <-- Change this to your last 4 digits
+    const ownerName = "John Doe";   // <-- Your name
+    const phoneNumber = "+11234567890"; // <-- Your phone number (full international format)
+    // ------------------------------------
+
+    document.getElementById("ownerName").innerText = ownerName;
+    document.getElementById("callBtn").innerHTML = `<button>Call ${ownerName}</button>`;
+    document.getElementById("callBtn").href = `tel:${phoneNumber}`;
+
+    function verifyDigits() {
+      const input = document.getElementById("digitInput").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (input === last4Digits) {
+        document.getElementById("call-section").style.display = "block";
+        errorMsg.innerText = "";
+      } else {
+        errorMsg.innerText = "Incorrect digits. Try again.";
+      }
+    }
+  </script>
+
+</body>
+</html>
